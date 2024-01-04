@@ -1,0 +1,122 @@
+﻿@model PolizaSeguroViewModel
+@{
+    ViewData["Title"] = "Pagina de COMPRAR";
+    Layout = "_Layout2";
+}
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+
+@if ((bool)ViewData["creado"])
+{
+    <div class="alert alert-success alert-dismissible fade show mx-auto" style="max-width: 600px" role="alert">
+        Compra Exitosa
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<form asp-action="ComprarPoliza">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="card mt-3 mx-auto" style="max-width: 600px">
+        <div class="card-header">
+            Datos de poliza
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label asp-for="Serie" class="form-label"></label>
+                <input asp-for="Serie" class="form-control" />
+                <span asp-validation-for="Serie" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Marca" class="form-label">Marca</label>
+                <select asp-for="Marca" class="form-select">
+                    <option value="Abarth">Abarth</option>
+                    <option value="BMW">BMW</option>
+                    <option value="Dacia">Dacia</option>
+                    <option value="Infiniti">Infiniti</option>
+                    <option value="Kia">Kia</option>
+                </select>
+                <span asp-validation-for="Marca" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Modelo" class="form-label">Modelo</label>
+                <select asp-for="Modelo" class="form-select" id="Modelo">
+                    
+                </select>
+                <span asp-validation-for="Modelo" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Ano" class="form-label"></label>
+                <input asp-for="Ano" class="form-control" />
+                <span asp-validation-for="Ano" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Color" class="form-label"></label>
+                <input asp-for="Color" class="form-control" />
+                <span asp-validation-for="Color" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Placas" class="form-label"></label>
+                <input asp-for="Placas" class="form-control" />
+                <span asp-validation-for="Placas" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="TipoPoliza" class="form-label">Tipo de cobertura</label>
+                <select asp-for="TipoPoliza" class="form-select">
+                    <option value="1ano">1 Año</option>
+                    <option value="2anos">2 Años</option>
+                    <option value="3anos">3 Años</option>
+                </select>
+                <span asp-validation-for="TipoPoliza" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="TipoCobertura" class="form-label">Tipo de cobertura</label>
+                <select asp-for="TipoCobertura" class="form-select">
+                    <option value="Minimo">Mínimo</option>
+                    <option value="Grande">Grande</option>
+                    <option value="Premium">Premium</option>
+                </select>
+                <span asp-validation-for="TipoCobertura" class="text-danger"></span>
+            </div>
+            
+        </div>
+        <div class="card-footer text-center">
+            <button class="nav-link text-dark" asp-area="" asp-controller="Conductor" asp-action="PagarPoliza">Siguiente</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<script>
+    $(document).ready(function () {
+        $('.form-select[name="Marca"]').change(function () {
+            console.log("Evento de cambio capturado");
+           
+            var selectedMarca = $(this).val();
+            var modelosSelect = $('#Modelo');
+            modelosSelect.empty();
+
+            if (selectedMarca === 'Abarth') {
+                modelosSelect.append('<option value="abarth500">Abarth 500</option>');
+                modelosSelect.append('<option value="abarth595">Abarth 595</option>');
+            } else if (selectedMarca === 'BMW') {
+                modelosSelect.append('<option value="bmwi4">BMW i4</option>');
+                modelosSelect.append('<option value="bmwi5">BMW i5</option>');
+            } else if (selectedMarca === 'Dacia') {
+                modelosSelect.append('<option value="daciaduster">Dacia Duster</option>');
+                modelosSelect.append('<option value="daciajogger">Dacia Jogger</option>');
+            } else if (selectedMarca === 'Infiniti') {
+                modelosSelect.append('<option value="infiniti q50 2.2d">Infiniti Q50 2.2D</option>');
+                modelosSelect.append('<option value="infiniti q30 2.2d">Infiniti Q30 1.5D</option>');
+            } else if (selectedMarca === 'Kia') {
+                modelosSelect.append('<option value="kiaev6">KIA EV6</option>');
+                modelosSelect.append('<option value="kiaev7">KIA EV7</option>');
+            }
+        });
+    });
+</script>

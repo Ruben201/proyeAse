@@ -1,0 +1,45 @@
+﻿@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.body {
+    background-color: #30777B;
+}
+
+
+div#principal {
+    margin: auto;
+    width: 1060px;
+    height: 930px;
+    background-color: whitesmoke;
+}
+
+h1 {
+    font-size: 5em;
+    text-align: center;
+}
+
+h2 {
+    text-align: left;
+    margin-left: 20px;
+}
+
+a.nav-link {
+    background-color: #F5F5F5;
+    color: black;
+    padding: 10px 20px;
+    text-decoration: none; /* Para quitar el subrayado predeterminado del enlace */
+    display: inline-block;
+    font-size: 16px;
+}
+
+    a.nav-link:hover {
+        background-color: #0096db;
+    }

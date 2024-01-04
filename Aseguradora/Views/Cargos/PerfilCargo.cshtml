@@ -1,0 +1,21 @@
+﻿@model CargoViewModel
+@{
+    ViewData["Title"] = "Perfil de cargo";
+}
+<h2 class="text-center mb-4">@ViewData["Title"]</h2>
+
+<div class="card text-dark bg-light mt-3">
+    <div class="card-header">
+        @Model.Nombres
+    </div>
+    <div class="card-body">
+        <div class="form-text mb-2">
+            <div class="text-dark">@Html.DisplayNameFor(model => model.ApellidoMaterno)</div>
+            @Model.ApellidoMaterno
+        </div>
+        <div class="form-text mb-2">
+            <div class="text-dark">@Html.DisplayNameFor(model => model.Rol)</div>
+            @Model.Rol
+        </div>
+    </div>
+</div>

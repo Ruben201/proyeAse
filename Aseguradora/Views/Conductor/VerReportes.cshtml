@@ -1,0 +1,52 @@
+﻿@model ConductorViewModel
+@{
+    ViewData["Title"] = "Ver historial de reportes";
+    Layout = "_Layout2";
+}
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<h2 class="text-center mb-4">@ViewData["Title"]</h2>
+
+<div class="card text-dark bg-light mt-3">
+    <div class="card-header">
+        @Model.Nombres
+    </div>
+    <div class="card-body">
+        <div class="form-text mb-2">
+            <div class="text-dark">@Html.DisplayNameFor(model => model.PhoneNumber)</div>
+            @Model.ApellidoMaterno
+        </div>
+
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#verHistorialModal">
+            Ver Historial de Reportes
+        </button>
+    </div>
+</div>
+
+
+<div class="modal fade" id="verHistorialModal" tabindex="-1" role="dialog" aria-labelledby="verHistorialModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="verHistorialModalLabel">Historial de Reportes de @Model.Nombres</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               
+                <table class="table">
+                    
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

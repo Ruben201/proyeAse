@@ -1,0 +1,254 @@
+﻿@model PolizaSeguroViewModel
+
+@{
+    ViewData["Title"] = "Pagina de LEVANTAR REPORTE";
+    Layout = "_Layout2";
+}
+<h2>Datos de su auto</h2>
+
+<div class="mb-3 obligatorio">
+    <label asp-for="Marca" class="form-label"></label>
+    <select asp-for="Marca" class="form-select">
+        <option value="">Seleccione un valor para este campo</option>
+    </select>
+    <span asp-validation-for="Marca" class="text-danger"></span>
+</div>
+<h2>Datos del auto afectado</h2>
+<form asp-action="ComprarPoliza">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="card mt-3 mx-auto" style="max-width: 600px">
+        <div class="card-header">
+            Datos de poliza
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label asp-for="Serie" class="form-label"></label>
+                <input asp-for="Serie" class="form-control" />
+                <span asp-validation-for="Serie" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Marca" class="form-label">Marca</label>
+                <select asp-for="Marca" class="form-select">
+                    <option value="Abarth">Abarth</option>
+                    <option value="BMW">BMW</option>
+                    <option value="Dacia">Dacia</option>
+                    <option value="Infiniti">Infiniti</option>
+                    <option value="Kia">Kia</option>
+                </select>
+                <span asp-validation-for="Marca" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Modelo" class="form-label">Modelo</label>
+                <select asp-for="Modelo" class="form-select" id="Modelo">
+                </select>
+                <span asp-validation-for="Modelo" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Ano" class="form-label"></label>
+                <input asp-for="Ano" class="form-control" />
+                <span asp-validation-for="Ano" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Color" class="form-label"></label>
+                <input asp-for="Color" class="form-control" />
+                <span asp-validation-for="Color" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Placas" class="form-label"></label>
+                <input asp-for="Placas" class="form-control" />
+                <span asp-validation-for="Placas" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="TipoPoliza" class="form-label">Tipo de cobertura</label>
+                <select asp-for="TipoPoliza" class="form-select">
+                    <option value="1ano">1 Año</option>
+                    <option value="2anos">2 Años</option>
+                    <option value="3anos">3 Años</option>
+                </select>
+                <span asp-validation-for="TipoPoliza" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="TipoCobertura" class="form-label">Tipo de cobertura</label>
+                <select asp-for="TipoCobertura" class="form-select">
+                    <option value="Minimo">Mínimo</option>
+                    <option value="Grande">Grande</option>
+                    <option value="Premium">Premium</option>
+                </select>
+                <span asp-validation-for="TipoCobertura" class="text-danger"></span>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<h2>Ubicación del accidente</h2>
+
+<input type="text" id="buscarLugar" placeholder="Buscar lugar">
+
+<h5>Toma el marcador y selecciona la ubicación donde tuviste el percance</h5>
+<label id="latitudLabel">Latitud:</label>
+<label id="longitudLabel">Longitud:</label>
+<div id="mapa" style="height: 400px;"></div>
+<button onclick="abrirCamara()">Abrir Cámara</button>
+
+<div class="card-footer text-center">
+    <button type="submit" class="btn btn-primary">Guardar reporte</button>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.form-select[name="Marca"]').change(function () {
+            console.log("Evento de cambio capturado");
+
+            var selectedMarca = $(this).val();
+            var modelosSelect = $('#Modelo');
+            modelosSelect.empty();
+
+            if (selectedMarca === 'Abarth') {
+                modelosSelect.append('<option value="abarth500">Abarth 500</option>');
+                modelosSelect.append('<option value="abarth595">Abarth 595</option>');
+            } else if (selectedMarca === 'BMW') {
+                modelosSelect.append('<option value="bmwi4">BMW i4</option>');
+                modelosSelect.append('<option value="bmwi5">BMW i5</option>');
+            } else if (selectedMarca === 'Dacia') {
+                modelosSelect.append('<option value="daciaduster">Dacia Duster</option>');
+                modelosSelect.append('<option value="daciajogger">Dacia Jogger</option>');
+            } else if (selectedMarca === 'Infiniti') {
+                modelosSelect.append('<option value="infiniti q50 2.2d">Infiniti Q50 2.2D</option>');
+                modelosSelect.append('<option value="infiniti q30 2.2d">Infiniti Q30 1.5D</option>');
+            } else if (selectedMarca === 'Kia') {
+                modelosSelect.append('<option value="kiaev6">KIA EV6</option>');
+                modelosSelect.append('<option value="kiaev7">KIA EV7</option>');
+            }
+        });
+    });
+
+    var mapa;
+    var latitudLabel = document.getElementById('latitudLabel');
+    var longitudLabel = document.getElementById('longitudLabel');
+    var tomarFotoBtn = document.getElementById('tomarFotoBtn');
+    var fotosContainer = document.getElementById('fotosContainer');
+    var fotoIndex = 1;
+
+
+
+    function inicializarMapa() {
+        mapa = new google.maps.Map(document.getElementById('mapa'), {
+            center: { lat: 19.549735, lng: -96.923702 },
+            zoom: 12
+        });
+
+        var marcador = new google.maps.Marker({
+            position: { lat: 19.549735, lng: -96.923702 },
+            map: mapa,
+            title: 'Ubicación de ejemplo',
+            draggable: true
+        });
+
+        // Agregar un cuadro de búsqueda
+        var input = document.getElementById('buscarLugar');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        // Agregar un evento cuando se selecciona un lugar en el cuadro de búsqueda
+        autocomplete.addListener('place_changed', function () {
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                return;
+            }
+
+            // Actualizar la posición del marcador y los labels con la nueva ubicación
+            marcador.setPosition(place.geometry.location);
+            mapa.panTo(place.geometry.location);
+
+            latitudLabel.textContent = 'Latitud: ' + place.geometry.location.lat();
+            longitudLabel.textContent = 'Longitud: ' + place.geometry.location.lng();
+        });
+
+        // Agregar eventos al marcador
+        marcador.addListener('dragend', function () {
+            latitudLabel.textContent = 'Latitud: ' + marcador.getPosition().lat();
+            longitudLabel.textContent = 'Longitud: ' + marcador.getPosition().lng();
+        });
+
+        marcador.addListener('click', function () {
+            latitudLabel.textContent = 'Latitud: ' + marcador.getPosition().lat();
+            longitudLabel.textContent = 'Longitud: ' + marcador.getPosition().lng();
+        });
+
+        // Agregar evento al botón para tomar la foto
+        tomarFotoBtn.addEventListener('click', function () {
+            tomarFoto();
+        });
+    }
+    function abrirCamara() {
+        // Contador de fotos tomadas
+        var fotosTomadas = 0;
+
+        // Obtener el elemento de video en el que se mostrará la transmisión de la cámara
+        var video = document.createElement('video');
+        video.style.width = '30%';
+        video.style.height = 'auto';
+        document.body.appendChild(video);
+
+        // Obtener el botón para capturar la foto
+        var capturarBoton = document.createElement('button');
+        capturarBoton.textContent = 'Capturar Foto';
+        capturarBoton.onclick = function () {
+            if (fotosTomadas < 4) {
+                capturarFoto(video);
+                fotosTomadas++;
+                if (fotosTomadas === 4) {
+                    capturarBoton.disabled = true;
+                }
+            }
+        };
+        document.body.appendChild(capturarBoton);
+
+        capturarBoton.style.position = 'absolute';
+        capturarBoton.style.top = '148%';  // Ajusta la distancia desde la parte inferior según tus necesidades
+        capturarBoton.style.right = '38%';
+
+        // Solicitar acceso a la cámara
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                // Mostrar la transmisión de la cámara en el elemento de video
+                video.srcObject = stream;
+                video.play();
+
+                video.style.position = 'absolute';
+                video.style.right = '44%';
+                video.style.top = '148%';
+            })
+            .catch(function (error) {
+                console.error('Error al abrir la cámara: ', error);
+            });
+    }
+
+    function capturarFoto(video) {
+        // Crear un lienzo para capturar la imagen
+        var canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        var context = canvas.getContext('2d');
+
+        // Dibujar la imagen del video en el lienzo
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // Crear un elemento de imagen para mostrar la foto capturada
+        var foto = document.createElement('img');
+        foto.style.width = '10%';
+        foto.style.height = 'auto';
+        foto.style.marginLeft = '58%';
+
+        document.body.appendChild(foto);
+
+        // Obtener la URL de la imagen en formato base64
+        var fotoURL = canvas.toDataURL('image/png');
+
+        // Mostrar la imagen capturada
+        foto.src = fotoURL;
+
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwu_JZhrqOIwRzdy22ooe4NTe26cPwZf4&callback=inicializarMapa&libraries=places" async defer></script>
+
