@@ -4,93 +4,78 @@
     ViewData["Title"] = "Pagina de LEVANTAR REPORTE";
     Layout = "_Layout2";
 }
-<h2>Datos de su auto</h2>
+<link rel="stylesheet" href="~/css/form.css" asp-append-version="true" />
 
-<div class="mb-3 obligatorio">
-    <label asp-for="Marca" class="form-label"></label>
-    <select asp-for="Marca" class="form-select">
-        <option value="">Seleccione un valor para este campo</option>
-    </select>
-    <span asp-validation-for="Marca" class="text-danger"></span>
+
+<div class="container mt-3">
+    <form asp-action="">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="card mt-3 mx-auto" style="max-width: 600px">
+            <div class="card-header">
+                Auto del accidente
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label asp-for="Marca" class="form-label">Marca</label>
+                    <select asp-for="Marca" class="form-select">
+                    </select>
+                    <span asp-validation-for="Marca" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form asp-action="ComprarPoliza">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="card mt-3 mx-auto" style="max-width: 600px">
+            <div class="card-header">
+                Datos de auto afectado
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label asp-for="Marca" class="form-label">Marca</label>
+                    <select asp-for="Marca" class="form-select">
+                        <option value="Abarth">Abarth</option>
+                        <option value="BMW">BMW</option>
+                        <option value="Dacia">Dacia</option>
+                        <option value="Infiniti">Infiniti</option>
+                        <option value="Kia">Kia</option>
+                    </select>
+                    <span asp-validation-for="Marca" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Modelo" class="form-label">Modelo</label>
+                    <select asp-for="Modelo" class="form-select" id="Modelo">
+                    </select>
+                    <span asp-validation-for="Modelo" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Color" class="form-label"></label>
+                    <input asp-for="Color" class="form-control" />
+                    <span asp-validation-for="Color" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Placas" class="form-label"></label>
+                    <input asp-for="Placas" class="form-control" />
+                    <span asp-validation-for="Placas" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </form>
+    <h2>Ubicación del accidente</h2>
+
+    <input type="text" id="buscarLugar" placeholder="Buscar lugar">
+
+    <h5>Toma el marcador y selecciona la ubicación donde tuviste el percance</h5>
+    <label id="latitudLabel">Latitud:</label>
+    <label id="longitudLabel">Longitud:</label>
+    <div id="mapa" style="height: 400px;"></div>
+    <button onclick="abrirCamara()">Abrir Cámara</button>
+
 </div>
-<h2>Datos del auto afectado</h2>
-<form asp-action="ComprarPoliza">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="card mt-3 mx-auto" style="max-width: 600px">
-        <div class="card-header">
-            Datos de poliza
-        </div>
-        <div class="card-body">
-            <div class="mb-3">
-                <label asp-for="Serie" class="form-label"></label>
-                <input asp-for="Serie" class="form-control" />
-                <span asp-validation-for="Serie" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="Marca" class="form-label">Marca</label>
-                <select asp-for="Marca" class="form-select">
-                    <option value="Abarth">Abarth</option>
-                    <option value="BMW">BMW</option>
-                    <option value="Dacia">Dacia</option>
-                    <option value="Infiniti">Infiniti</option>
-                    <option value="Kia">Kia</option>
-                </select>
-                <span asp-validation-for="Marca" class="text-danger"></span>
-            </div>
 
-            <div class="mb-3">
-                <label asp-for="Modelo" class="form-label">Modelo</label>
-                <select asp-for="Modelo" class="form-select" id="Modelo">
-                </select>
-                <span asp-validation-for="Modelo" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="Ano" class="form-label"></label>
-                <input asp-for="Ano" class="form-control" />
-                <span asp-validation-for="Ano" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="Color" class="form-label"></label>
-                <input asp-for="Color" class="form-control" />
-                <span asp-validation-for="Color" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="Placas" class="form-label"></label>
-                <input asp-for="Placas" class="form-control" />
-                <span asp-validation-for="Placas" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="TipoPoliza" class="form-label">Tipo de cobertura</label>
-                <select asp-for="TipoPoliza" class="form-select">
-                    <option value="1ano">1 Año</option>
-                    <option value="2anos">2 Años</option>
-                    <option value="3anos">3 Años</option>
-                </select>
-                <span asp-validation-for="TipoPoliza" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="TipoCobertura" class="form-label">Tipo de cobertura</label>
-                <select asp-for="TipoCobertura" class="form-select">
-                    <option value="Minimo">Mínimo</option>
-                    <option value="Grande">Grande</option>
-                    <option value="Premium">Premium</option>
-                </select>
-                <span asp-validation-for="TipoCobertura" class="text-danger"></span>
-            </div>
 
-        </div>
-    </div>
-</form>
-
-<h2>Ubicación del accidente</h2>
-
-<input type="text" id="buscarLugar" placeholder="Buscar lugar">
-
-<h5>Toma el marcador y selecciona la ubicación donde tuviste el percance</h5>
-<label id="latitudLabel">Latitud:</label>
-<label id="longitudLabel">Longitud:</label>
-<div id="mapa" style="height: 400px;"></div>
-<button onclick="abrirCamara()">Abrir Cámara</button>
 
 <div class="card-footer text-center">
     <button type="submit" class="btn btn-primary">Guardar reporte</button>
@@ -184,29 +169,13 @@
         // Contador de fotos tomadas
         var fotosTomadas = 0;
 
-        // Obtener el elemento de video en el que se mostrará la transmisión de la cámara
-        var video = document.createElement('video');
-        video.style.width = '30%';
-        video.style.height = 'auto';
+        // Crear elementos de video y botón de captura
+        var video = crearElemento('video', '10%', 'auto', 'absolute', '14%', '48%');
+        var capturarBoton = crearBotonCaptura();
+
+        // Agregar elementos al cuerpo del documento
         document.body.appendChild(video);
-
-        // Obtener el botón para capturar la foto
-        var capturarBoton = document.createElement('button');
-        capturarBoton.textContent = 'Capturar Foto';
-        capturarBoton.onclick = function () {
-            if (fotosTomadas < 4) {
-                capturarFoto(video);
-                fotosTomadas++;
-                if (fotosTomadas === 4) {
-                    capturarBoton.disabled = true;
-                }
-            }
-        };
         document.body.appendChild(capturarBoton);
-
-        capturarBoton.style.position = 'absolute';
-        capturarBoton.style.top = '148%';  // Ajusta la distancia desde la parte inferior según tus necesidades
-        capturarBoton.style.right = '38%';
 
         // Solicitar acceso a la cámara
         navigator.mediaDevices.getUserMedia({ video: true })
@@ -214,14 +183,38 @@
                 // Mostrar la transmisión de la cámara en el elemento de video
                 video.srcObject = stream;
                 video.play();
-
-                video.style.position = 'absolute';
-                video.style.right = '44%';
-                video.style.top = '148%';
             })
             .catch(function (error) {
                 console.error('Error al abrir la cámara: ', error);
             });
+
+        // Función para capturar la foto al hacer clic en el botón
+        capturarBoton.addEventListener('click', function () {
+            if (fotosTomadas < 4) {
+                capturarFoto(video);
+                fotosTomadas++;
+                if (fotosTomadas === 4) {
+                    capturarBoton.disabled = true;
+                }
+            }
+        });
+    }
+
+    function crearElemento(tagName, width, height, position, right, top) {
+        var elemento = document.createElement(tagName);
+        elemento.style.width = width;
+        elemento.style.height = height;
+        elemento.style.position = position;
+        elemento.style.right = right;
+        elemento.style.top = top;
+
+        return elemento;
+    }
+
+    function crearBotonCaptura() {
+        var boton = crearElemento('button', '', '', 'absolute', '38%', '148%');
+        boton.textContent = 'Capturar Foto';
+        return boton;
     }
 
     function capturarFoto(video) {
@@ -235,9 +228,7 @@
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
         // Crear un elemento de imagen para mostrar la foto capturada
-        var foto = document.createElement('img');
-        foto.style.width = '10%';
-        foto.style.height = 'auto';
+        var foto = crearElemento('img', '10%', 'auto', '', '', '');
         foto.style.marginLeft = '58%';
 
         document.body.appendChild(foto);
@@ -247,7 +238,6 @@
 
         // Mostrar la imagen capturada
         foto.src = fotoURL;
-
     }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwu_JZhrqOIwRzdy22ooe4NTe26cPwZf4&callback=inicializarMapa&libraries=places" async defer></script>

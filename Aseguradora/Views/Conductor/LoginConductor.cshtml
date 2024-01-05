@@ -1,44 +1,45 @@
-﻿@model LoginConductorViewModel
+﻿@using Aseguradora.Models;
+@model LoginViewModel;
 <link href="~/css/login.css" rel="stylesheet" />
 @{
     Layout = "_LayoutLogin";
     ViewData["Title"] = "Inicio de sesión conductor";
 }
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <form asp-action="LoginConductor" class="needs-validation" novalidate>
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <form asp-action="LoginConductor" class="needs-validation" novalidate>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                <div class="mb-3">
-                    <label asp-for="Nombres"></label>
-                    <input asp-for="Nombres" class="form-control" required />
-                    <span asp-validation-for="Nombres" class="text-danger"></span>
-                    <div class="invalid-feedback">Por favor, ingresa tu nombre de usuario.</div>
-                </div>
+                    <div class="mb-3">
+                        <label asp-for="PhoneNumber"></label>
+                        <input asp-for="PhoneNumber" class="form-control" required />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        <div class="invalid-feedback">Por favor, ingresa tu nombre de usuario.</div>
+                    </div>
 
-                <div class="mb-3">
-                    <label asp-for="Password"></label>
-                    <input asp-for="Password" type="password" class="form-control" required />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                    <div class="invalid-feedback">Por favor, ingresa tu contraseña.</div>
-                </div>
+                    <div class="mb-3">
+                        <label asp-for="Password"></label>
+                        <input asp-for="Password" type="password" class="form-control" required />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <div class="invalid-feedback">Por favor, ingresa tu contraseña.</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" asp-area="" asp-controller="Conductor" asp-action="MenuConductor">Iniciar Sesión</button>
+                    <br />
+                    <div class="register-link">
+                        <p>¿Aún no tienes cuenta? Registrate aquí</p>
+                     </div>
+                    <a type="submit" class="btn btn-primary" asp-area="" asp-controller="Conductor" asp-action="RegistroConductor">Registrarme</a>
 
-                <br />
-                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-
-                <div class="register-link">
-                    <p>¿Aún no tienes cuenta? Registrate aquí</p>
-                    <br>
-                    <a class="btnRegistrar" asp-area="" asp-controller="Conductor" asp-action="RegistroConductor">Registrarse</a>
-                </div>
-                <div class="register-link">
-                    <p>¿Eres parte de la empresa? Inicia aquí</p>
-                    <br>
-                    <a class="btnRegistrar" asp-area="" asp-controller="Cargos" asp-action="LoginCargo">Iniciar sesión</a>
-                </div>
-            </form>
+                    <br />
+                    <div class="register-link">
+                        <p>¿Eres parte de la empresa? Inicia aquí</p>
+                    </div>
+                    <a class="btn btn-primary" asp-area="" asp-controller="Cargos" asp-action="LoginCargo">Iniciar sesión</a>
+                </form>
+            </div>
         </div>
     </div>
 </div>

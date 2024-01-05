@@ -37,16 +37,7 @@ namespace Aseguradora.Data.Seed
             modelBuilder.Entity<CustomIdentityUser>().HasData(
                 new CustomIdentityUser
                 {
-                    Id = ConductorId,
-                    UserName = "Rubén Isaí",
-                    Nombres = "Rubén Isaí",
-                    ApellidoPaterno = "Alejo",
-                    ApellidoMaterno = "Barrientos",
-                    NormalizedUserName = "Rubén Isaí".ToUpper(),
-                    FechaNacimiento = new DateTime(2001, 10, 22),
-                    PhoneNumber = "2282557516",
-                    NumeroDeLicencia = "123456789QWERTYUI",
-                    PasswordHash = new PasswordHasher<CustomIdentityUser>().HashPassword(null, "rubens")
+                   
                 }
             );
 

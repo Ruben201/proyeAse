@@ -17,10 +17,10 @@
 
 <article class="row">
     <div class="col-12 col-sm-6 col-md-6 col-lg-5 col-xl-4">
-        <div class="card">
-            <h5 class="card-header">Detalles de pago</h5>
-            <div class="card-body"></div>
-            <form>
+        <div class="card" style="background-color: #76CF92; border: 1px solid #dee2e6; border-radius: 8px; padding: 20px;">
+            <h5 class="card-header" style="background-color: #304B3A; border-radius: 8px; padding: 20px; text-align: center; color: #fff;">Detalles de pago</h5>
+            <div class="card-body" style="background-color: #76CF92; border-radius: 8px; padding: 20px;"></div>
+            <form class="custom-form" style="background-color: #76CF92; border: 1px solid #dee2e6; border-radius: 8px; padding: 20px;">
                 <label asp-for="Card_number" class="form-label"></label>
                 <div class="input-group">
                     <span class="input-group-text" id="card-type-addon1"><span class="card-type"></span></span>
@@ -53,13 +53,11 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Pagar</button>
+                <button type="submit" class="btn btn-primary" style=" background-color: #fff; text-align: center; color: black; border-color: white; width: 50%">Pagar</button>
                 
             </form>
             <br />
-            <div class="card-footer text-muted small">
-                Este ejemplo válida los primeros digitos de los números de tarjetas abajo mostradas
-            </div>
+
         </div>
     </div>
     <div class="col-12 col-md-6 mt-5">

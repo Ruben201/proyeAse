@@ -5,32 +5,35 @@
     ViewData["Title"] = "Inicio de sesión";
 }
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <form asp-action="LoginCargo" class="needs-validation" novalidate>
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <form asp-action="LoginCargo" class="needs-validation" novalidate>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                <div class="mb-3">
-                    <label asp-for="UserName"></label>
-                    <input asp-for="UserName" class="form-control" required />
-                    <span asp-validation-for="UserName" class="text-danger"></span>
-                    <div class="invalid-feedback">Por favor, ingresa tu nombre de usuario.</div>
-                </div>
+                    <div class="mb-3">
+                        <label asp-for="UserName"></label>
+                        <input asp-for="UserName" class="form-control" required />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                        <div class="invalid-feedback">Por favor, ingresa tu nombre de usuario.</div>
+                    </div>
 
-                <div class="mb-3">
-                    <label asp-for="Password"></label>
-                    <input asp-for="Password" type="password" class="form-control" required />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                    <div class="invalid-feedback">Por favor, ingresa tu contraseña.</div>
-                </div>
+                    <div class="mb-3">
+                        <label asp-for="Password"></label>
+                        <input asp-for="Password" type="password" class="form-control" required />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <div class="invalid-feedback">Por favor, ingresa tu contraseña.</div>
+                    </div>
 
-                <br />
-                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-            </form>
+                    <br />
+                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
+
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />

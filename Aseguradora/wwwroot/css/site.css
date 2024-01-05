@@ -7,9 +7,24 @@ html {
     font-size: 16px;
   }
 }
+/* Aseguradora.styles.css */
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+/* Estilo para el navbar */
+.navbar {
+    background-color: #304B3A; /* Cambia el color de fondo al que desees */
+    color: white; /* Cambia el color del texto al que desees */
+    /* Agrega cualquier otro estilo personalizado que desees */
+}
+
+/* Estilo para los enlaces dentro del navbar */
+.navbar-nav .nav-link {
+    color: white !important; /* Cambia el color del texto al que desees */
+}
+
+/* Estilo para el enlace activo */
+.navbar-nav .nav-item.active .nav-link {
+    background-color: #904400; /* Cambia el color de fondo del enlace activo al que desees */
+    color: white; /* Cambia el color del texto del enlace activo al que desees */
 }
 
 html {
@@ -18,5 +33,6 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background: #61AF7A;
 }

@@ -2,6 +2,7 @@ using Aseguradora.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Aseguradora.Data;
+using Aseguradora.Services.Backend;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,9 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<IdentityContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityContext")));
+
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<IAseguradoraService, AseguradoraService>();
 
 builder.Services.AddIdentity<CustomIdentityUser, IdentityRole>(options =>
 {

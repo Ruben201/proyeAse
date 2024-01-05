@@ -3,7 +3,7 @@
     ViewData["Title"] = "Pagina de COMPRAR";
     Layout = "_Layout2";
 }
-
+<link rel="stylesheet" href="~/css/form.css" asp-append-version="true" />
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 
@@ -22,13 +22,13 @@
         <div class="card-header">
             Datos de poliza
         </div>
-        <div class="card-body">
+        <div class="card-body ">
             <div class="mb-3">
                 <label asp-for="Serie" class="form-label"></label>
                 <input asp-for="Serie" class="form-control" />
                 <span asp-validation-for="Serie" class="text-danger"></span>
             </div>
-            <div class="mb-3">
+            <div class="mb-3" obligatorio>
                 <label asp-for="Marca" class="form-label">Marca</label>
                 <select asp-for="Marca" class="form-select">
                     <option value="Abarth">Abarth</option>
@@ -82,7 +82,7 @@
             </div>
             
         </div>
-        <div class="card-footer text-center">
+        <div class="card-footer d-flex justify-content-center align-items-center">
             <button class="nav-link text-dark" asp-area="" asp-controller="Conductor" asp-action="PagarPoliza">Siguiente</button>
         </div>
     </div>
@@ -91,7 +91,7 @@
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
 }
-
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 <script>
     $(document).ready(function () {
         $('.form-select[name="Marca"]').change(function () {

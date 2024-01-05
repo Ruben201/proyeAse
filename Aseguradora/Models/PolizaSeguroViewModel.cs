@@ -9,13 +9,14 @@ namespace Aseguradora.Models
         public string Serie { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        [Display(Name = "Marca")]
         public string Marca { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string Modelo { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        [Display(Name = "Ano")]
+        [Display(Name = "Año")]
         public string Ano { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]

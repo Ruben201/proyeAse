@@ -1,5 +1,6 @@
 ﻿using Aseguradora.Data;
 using Aseguradora.Models;
+using Aseguradora.Services.Backend;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,47 +16,43 @@ namespace Aseguradora.Controllers
         private readonly IdentityContext _context;
         private readonly UserManager<CustomIdentityUser> _userManager;
         private readonly SignInManager<CustomIdentityUser> _signInManager;
+        private readonly IAseguradoraService _aseguradoraService;
 
-        public CargosController(IdentityContext context, UserManager<CustomIdentityUser> userManager, SignInManager<CustomIdentityUser> signInManager)
+        public CargosController(IdentityContext context, UserManager<CustomIdentityUser> userManager, SignInManager<CustomIdentityUser> signInManager, IAseguradoraService aseguradoraService)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
+            _aseguradoraService = aseguradoraService;
         }
         [AllowAnonymous]
-        public IActionResult LoginCargo()
+        public async Task<IActionResult> LoginCargo()
         {
+            LoginViewModel model = new LoginViewModel();
+            model.PhoneNumber = "2281514468";
+            model.Password = "A1G2n3i4zhircon.";
+            var response = await _aseguradoraService.LoginAsync(model);
+            Console.WriteLine(response.AcessToken);
             return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LoginCargoAsync(LoginCargoViewModel model)
+        public async Task<IActionResult> LoginCargoAsync( )
         {
-            if(ModelState.IsValid)
+         
+            if (ModelState.IsValid)
             {
                 try
                 {
-                    bool signInResult = false;
-                    //Esta función verifica en la bd que el correo y contraseña sean válidos
-                    var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, isPersistent: false, lockoutOnFailure: false);
-                    signInResult = result.Succeeded; //Regresa true si es válido
-
-                    if (signInResult)
-                    {
-                        return RedirectToAction("Menu", "Home");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("UserName", "Credenciales no válidas. Inténtelo nuevamente.");
-                    }
+                    
                 }catch(Exception ex)
                 {
                     ModelState.AddModelError(string.Empty, ex.Message);
                 }
             }
-            return View(model);
+            return View();
         }
         //Este atributo permite que /Cargos/Registro si pueda ser accedido aunque no este loqueado
         [AllowAnonymous]
@@ -76,36 +73,10 @@ namespace Aseguradora.Controllers
             {
                 try
                 {
-                    var cargo = await _userManager.FindByNameAsync(model.UserName);
-                    if(cargo == null)
-                    {
-                        var cargoToCreate = new CustomIdentityUser
-                        {
-                            Nombres = model.Nombres,
-                            ApellidoPaterno = model.ApellidoPaterno,
-                            ApellidoMaterno = model.ApellidoMaterno,
-                            FechaIngreso = model.FechaIngreso,
-                            UserName = model.UserName,
-                            NormalizedUserName = model.UserName.ToUpper(),
-                        };
-                        IdentityResult result = await _userManager.CreateAsync(cargoToCreate, model.Password);
-                        if (result.Succeeded)
-                        {
-                            await _userManager.AddToRoleAsync(cargoToCreate, model.Rol);
-                            return RedirectToAction("RegistroCargo", new { creado = true });
-                        }
-
-                        List<IdentityError> errorList = result.Errors.ToList();
-                        var errors = string.Join(" ", errorList.Select(e => e.Description));
-                        ModelState.AddModelError("Password", errors);
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("UserName", $"El usuario {cargo.UserName} ya existe en el sistema");
-                    }
-                } catch(DbUpdateException ex)
+                   
+                } catch(Exception ex)
                 {
-                    ModelState.AddModelError(string.Empty, ex.Message);
+                    Console.WriteLine(ex.Message);
                 }
             }
 
@@ -122,9 +93,7 @@ namespace Aseguradora.Controllers
 
             CargoViewModel cargo = new()
             {
-                Nombres = identityUser.Nombres,
-                ApellidoPaterno = identityUser.Email,
-                Rol = rol
+                
             };
 
             return View(cargo);

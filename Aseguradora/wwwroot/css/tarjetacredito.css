@@ -1,20 +1,40 @@
 ﻿#card-type-addon1 {
-    width: 50px;
-    padding: 0 0 0 4px;
+    width: 50px; /* Ajusta según sea necesario */
+    padding: 0 0 0 4px; /* Ajusta según sea necesario */
 }
 
 .card-type {
     width: 40px;
     height: 29px;
-    background: url("../images/cards.png");
-    background-position: 0 -145px;
+    background: url("../images/cards.png"); /* Ajusta la ruta de la imagen según sea necesario */
+    background-position: 0 -145px; /* Ajusta según sea necesario */
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-    .card-type.mastercard {
-        background-position: 0 0;
-    }
+.card-body {
+    background-color: #76cf92;
+}
+
+.card-header {
+    background-color: #304B3A; /* Cambia el color de fondo según tu preferencia */
+    color: #fff; /* Cambia el color del texto según tu preferencia */
+    padding: 10px; /* Ajusta el relleno según sea necesario */
+}
+
+.card-footer {
+    background-color: #304B3A; /* Cambia el color de fondo según tu preferencia */
+    color: #fff; /* Cambia el color del texto según tu preferencia */
+    padding: 10px; /* Ajusta el relleno según sea necesario */
+    text-align: center; /* Ajusta la alineación del texto según sea necesario */
+}
+
+
+
+
+.card-type.mastercard {
+    background-position: 0 0;
+}
 
     .card-type.amex {
         background-position: 0 -28px;
@@ -38,10 +58,10 @@
     right: 5px;
     line-height: 60px;
     font-size: 1.4rem;
-    color: #ccc;
+    color: #ccc; /* Ajusta según sea necesario */
     z-index: 100;
 }
 
     .card-valid.active {
-        color: #42ca7c;
+        color: #42ca7c; /* Cambia el color cuando la tarjeta es válida */
     }

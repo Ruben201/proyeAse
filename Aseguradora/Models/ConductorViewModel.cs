@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace Aseguradora.Models
 {
-    public class ConductorViewModel
+    public class ConductorViewModel1
     {
 
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]

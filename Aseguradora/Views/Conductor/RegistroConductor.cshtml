@@ -1,4 +1,4 @@
-﻿@model ConductorViewModel
+﻿@model ConductorUserViewModel
 
 @{
     ViewData["Title"] = "Crear nuevo conductor";
@@ -6,17 +6,11 @@
 }
 <h2 class="text-center mb-4">@ViewData["Title"]</h2>
 
-@if ((bool)ViewData["creado"])
-{
-    <div class="alert alert-success alert-dismissible fade show mx-auto" style="max-width: 600px" role="alert">
-        El usuario se ha creado con éxito
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-}
+
 
 <form asp-action="RegistroConductor">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="card mt-3 mx-auto" style="max-width: 600px">
+    <div-- class="card mt-3 mx-auto" style="max-width: 600px">
         <div class="card-header">
             Datos de conductor
         </div>
@@ -37,9 +31,9 @@
                 <span asp-validation-for="ApellidoMaterno" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="NumeroDeLicencia" class="form-label"></label>
-                <input asp-for="NumeroDeLicencia" class="form-control" />
-                <span asp-validation-for="NumeroDeLicencia" class="text-danger"></span>
+                <label asp-for="Licencia" class="form-label"></label>
+                <input asp-for="Licencia" class="form-control" />
+                <span asp-validation-for="Licencia" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="PhoneNumber" class="form-label"></label>
@@ -47,16 +41,16 @@
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="FechaNacimiento" class="form-label"></label>
-                <input asp-for="FechaNacimiento" class="form-control" type="date" />
-                <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+                <label asp-for="Edad" class="form-label"></label>
+                <input asp-for="Edad" class="form-control"/>
+                <span asp-validation-for="Edad" class="text-danger"></span>
             </div>
          
             <div class="mb-3">
-                <label asp-for="Password" class="form-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <label asp-for="PasswordHash" class="form-label"></label>
+                <input asp-for="PasswordHash" class="form-control" />
                 <div class="small text-secondary">Se recomienda ingrese una contraseña fuerte</div>
-                <span asp-validation-for="Password" class="text-danger"></span>
+                <span asp-validation-for="PasswordHash" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="ConfirmPassword" class="form-label"></label>
@@ -67,7 +61,7 @@
         <div class="card-footer text-center">
             <button type="submit" class="btn btn-primary">Crear conductor</button>
         </div>
-    </div>
+    </div-->
 </form>
 
 @section Scripts{
